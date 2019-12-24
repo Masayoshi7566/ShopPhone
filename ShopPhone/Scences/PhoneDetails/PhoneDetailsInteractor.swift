@@ -10,32 +10,72 @@
 //  see http://clean-swift.com
 //
 
-import UIKit
-
-protocol PhoneDetailsBusinessLogic
-{
-  func doSomething(request: PhoneDetails.Something.Request)
+protocol PhoneDetailsBusinessLogic {
+    func getPhoneDetailImageList()
+    func getPhoneDetailImage(imageURL: String)
+    func getPhoneDetail(phoneName: inout String, description: inout String, phonePrice: inout Double, phoneRating: inout Double)
 }
 
-protocol PhoneDetailsDataStore
-{
-  //var name: String { get set }
+protocol PhoneDetailsDataStore {
+  var phoneId: Int { get set }
+  var name: String { get set }
+  var phoneDescription: String { get set }
+  var price: Double { get set }
+  var rating: Double { get set }
 }
 
-class PhoneDetailsInteractor: PhoneDetailsBusinessLogic, PhoneDetailsDataStore
-{
+class PhoneDetailsInteractor: PhoneDetailsBusinessLogic, PhoneDetailsDataStore {
   var presenter: PhoneDetailsPresentationLogic?
-  var worker: PhoneDetailsWorker?
-  //var name: String = ""
+  var phoneDetailsWorker: PhoneDetailsWorker?
+  var phoneId: Int = 0
+  var name: String = ""
+  var phoneDescription: String = ""
+  var price: Double = 0.0
+  var rating: Double = 0.0
+  var realmManager: RealmManagerProtocol?
   
-  // MARK: Do something
-  
-  func doSomething(request: PhoneDetails.Something.Request)
-  {
-    worker = PhoneDetailsWorker()
-    worker?.doSomeWork()
+  private func prepare() {
+      if realmManager == nil {
+          realmManager = RealmManager()
+      }
+      
+      if phoneDetailsWorker == nil {
+          phoneDetailsWorker = PhoneDetailsWorker()
+      }
+   }
     
-    let response = PhoneDetails.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    func getPhoneDetailImageList() {
+        prepare()
+        
+        phoneDetailsWorker?.getPhoneImageList(Id: phoneId, completion: {
+            (result) in switch result {
+            case .Success(let data):
+                let response = PhoneDetails.PhoneImageList.Response(result: data)
+                self.presenter?.presentPhoneImageListData(response: response)
+            case .Error(let error):
+                print("Error Get Image Data: \(error.localizedDescription)")
+            }
+        })
+    }
+    
+    func getPhoneDetailImage(imageURL: String) {
+        prepare()
+        
+        phoneDetailsWorker?.getPhoneDetailsImage(url: imageURL, completion: {
+            (result) in switch result {
+            case .Success(let image):
+                let response = PhoneDetails.PhoneImage.Response(phoneImage: image)
+                self.presenter?.presentPhoneImage(response: response)
+            case .Error(let error):
+                print("Error Get Image Data: \(error.localizedDescription)")
+            }
+        })
+    }
+    
+    func getPhoneDetail(phoneName: inout String, description: inout String, phonePrice: inout Double, phoneRating: inout Double) {
+        phoneName = name
+        description = phoneDescription
+        phonePrice = price
+        phoneRating = rating
+    }
 }

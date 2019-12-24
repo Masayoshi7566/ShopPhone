@@ -12,20 +12,28 @@
 
 import UIKit
 
-enum PhoneDetails
-{
-  // MARK: Use cases
-  
-  enum Something
-  {
-    struct Request
-    {
+enum PhoneDetails {
+  enum PhoneImageList {
+    struct Request {
+      var phoneId: Int
     }
-    struct Response
-    {
+    struct Response {
+      var result: PhoneImageModel?
     }
-    struct ViewModel
-    {
+    struct ViewModel {
+      var result: PhoneImageModel?
     }
   }
+    
+    enum PhoneImage {
+        struct Request {
+          var url: String
+        }
+        struct Response {
+          var phoneImage: UIImage
+        }
+        struct ViewModel {
+          var phoneImage: UIImage
+        }
+    }
 }

@@ -10,32 +10,85 @@
 //  see http://clean-swift.com
 //
 
-import UIKit
+import Moya
 
-protocol PhoneListBusinessLogic
-{
-  func doSomething(request: PhoneList.Something.Request)
+protocol PhoneListBusinessLogic {
+  func passDataToPhoneDetails(request: PhoneList.PhoneDetails.Request)
+  func getAllPhoneListData()
+  func getFavouritePhone()
+  func addFavoritePhone(data: PhoneDataModel) 
+  func unFavouritePhone(id: Int)
 }
 
-protocol PhoneListDataStore
-{
-  //var name: String { get set }
+protocol PhoneListDataStore {
+    var phoneId: Int { get set }
+    var name: String { get set }
+    var phoneDescription: String { get set }
+    var price: Double { get set }
+    var rating: Double { get set }
 }
 
-class PhoneListInteractor: PhoneListBusinessLogic, PhoneListDataStore
-{
+class PhoneListInteractor: PhoneListBusinessLogic, PhoneListDataStore {
   var presenter: PhoneListPresentationLogic?
-  var worker: PhoneListWorker?
-  //var name: String = ""
+  var phoneListWorker: PhoneListWorker?
+  var realmManager: RealmManagerProtocol?
   
-  // MARK: Do something
-  
-  func doSomething(request: PhoneList.Something.Request)
-  {
-    worker = PhoneListWorker()
-    worker?.doSomeWork()
+    let phoneDataServiceProvider = MoyaProvider<PhoneDataService>()
+    var phoneId: Int = 0
+    var name: String = ""
+    var phoneDescription: String = ""
+    var price: Double = 0.0
+    var rating: Double = 0.0
+
+    private func prepare() {
+        if realmManager == nil {
+            realmManager = RealmManager()
+        }
+        
+        if phoneListWorker == nil {
+            phoneListWorker = PhoneListWorker()
+        }
+    }
     
-    let response = PhoneList.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    func passDataToPhoneDetails(request: PhoneList.PhoneDetails.Request) {
+        phoneId = request.phoneId
+        name = request.name
+        phoneDescription = request.phoneDescription
+        price = request.price
+        rating = request.rating
+        presenter?.presentPhoneDetails()
+    }
+
+    func getAllPhoneListData() {
+        prepare()
+        
+        phoneListWorker?.getPhoneListData(completion: { (result) in
+            switch result {
+            case .Success(let data):
+                let response = PhoneList.PhoneData.Response(result: data)
+                self.presenter?.presentAllPhoneListData(response: response)
+            case .Error(let error):
+                print("Error Get Phone Data: \(error.localizedDescription)")
+            }
+        })
+    }
+    
+    func unFavouritePhone(id: Int) {
+        prepare()
+        self.realmManager?.deleteFavouritePhone(id: id)
+        self.presenter?.presentUpdateFavouritePhoneCell()
+    }
+    
+    func addFavoritePhone(data: PhoneDataModel) {
+        prepare()
+        self.realmManager?.addFavouritePhone(phoneData: data)
+        self.presenter?.presentUpdateFavouritePhoneCell()
+    }
+    
+    func getFavouritePhone() {
+        prepare()
+        guard let allFavouritePhoneId = realmManager?.getAllFavoritePhoneId() else { return }
+        let response = PhoneList.PhoneFavourite.Response(result: allFavouritePhoneId)
+        self.presenter?.presentFavouritePhoneData(response: response)
+    }
 }

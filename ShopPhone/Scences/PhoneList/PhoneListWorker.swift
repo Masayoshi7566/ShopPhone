@@ -11,10 +11,31 @@
 //
 
 import UIKit
+import Moya
+import SwiftyJSON
 
-class PhoneListWorker
-{
-  func doSomeWork()
-  {
-  }
+class PhoneListWorker {
+    let phoneDataServiceProvider = MoyaProvider<PhoneDataService>()
+    
+    func getPhoneListData(completion: @escaping (Result<PhoneDataModel>) -> Void) {
+        phoneDataServiceProvider.request(.getPhoneListData, completion: { (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    let responseFilter = try response.filterSuccessfulStatusCodes()
+                    let jsonArray = try JSON(data: responseFilter.data)
+                    var jsonData: JSON
+                    for item in jsonArray {
+                        jsonData = item.1
+                        completion(.Success(try PhoneDataModel(json: jsonData)))
+                    }
+                } catch let error {
+                    completion(.Error(error))
+                    print("Error Map Phone Data : \(error)")
+                }
+            case .failure(let error) :
+                return completion(.Error(error))
+            }
+        })
+    }
 }

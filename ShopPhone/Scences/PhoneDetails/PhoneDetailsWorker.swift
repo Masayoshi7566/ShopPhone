@@ -11,10 +11,52 @@
 //
 
 import UIKit
+import Moya
+import SwiftyJSON
+import Kingfisher
 
-class PhoneDetailsWorker
-{
-  func doSomeWork()
-  {
-  }
+class PhoneDetailsWorker {
+  let phoneImageServiceProvider = MoyaProvider<PhoneDataService>()
+  
+    func getPhoneImageList(Id: Int, completion: @escaping (Result<PhoneImageModel>) -> Void) {
+    phoneImageServiceProvider.request(.getPhoneImage(phoneId: Id), completion: { (result) in
+          switch result {
+          case .success(let response):
+              do {
+                  let responseFilter = try response.filterSuccessfulStatusCodes()
+                  let jsonArray = try JSON(data: responseFilter.data)
+                  var jsonData: JSON
+                  for item in jsonArray {
+                      jsonData = item.1
+                      completion(.Success(try PhoneImageModel(json: jsonData)))
+                  }
+              } catch let error {
+                  completion(.Error(error))
+                  print("Error Map Image Data : \(error)")
+              }
+          case .failure(let error) :
+              return completion(.Error(error))
+          }
+      })
+   }
+    
+    func getPhoneDetailsImage(url: String, completion: @escaping (Result<UIImage>) -> Void) {
+        //check url is have http:// or not
+        var imageURL: String
+        let httpString: String = "http://"
+        if url.hasPrefix("http://") || url.hasPrefix("https://")  {
+           imageURL = url
+        } else {
+           imageURL = "\(httpString)\(url)"
+        }
+        guard let phoneImageURL = URL.init(string: imageURL) else { return }
+        KingfisherManager.shared.downloader.downloadImage(with: phoneImageURL, options: nil, progressBlock: nil,  completionHandler: { result in
+                switch result {
+                case .success(let response):
+                    completion(.Success(response.image))
+                case .failure(let error):
+                    completion(.Error(error))
+            }
+        })
+    }
 }

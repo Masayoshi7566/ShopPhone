@@ -11,35 +11,48 @@
 //
 
 import UIKit
+import Kingfisher
+import JGProgressHUD
 
-protocol PhoneDetailsDisplayLogic: class
-{
-  func displaySomething(viewModel: PhoneDetails.Something.ViewModel)
+protocol PhoneDetailsDisplayLogic: class {
+   func getPhoneImageListDataSuccess(viewModel: PhoneDetails.PhoneImageList.ViewModel)
+   func getPhoneImageListDataFailed()
+   func getPhoneImageSuccess(viewModel: PhoneDetails.PhoneImage.ViewModel)
 }
 
-class PhoneDetailsViewController: UIViewController, PhoneDetailsDisplayLogic
-{
+class PhoneDetailsViewController: UIViewController, PhoneDetailsDisplayLogic {
   var interactor: PhoneDetailsBusinessLogic?
   var router: (NSObjectProtocol & PhoneDetailsRoutingLogic & PhoneDetailsDataPassing)?
-
+    
+    @IBOutlet weak var ratingLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var phoneDescriptionLabel: UILabel!
+    @IBOutlet weak var phoneImageScrollView: UIScrollView!
+    @IBOutlet weak var phoneImageView: UIView!
+    @IBOutlet weak var phoneImage: UIImageView!
+    
+    let hud = JGProgressHUD(style: .extraLight)
+    var name: String = ""
+    var phoneDescription: String = ""
+    var price: Double = 0.0
+    var rating: Double = 0.0
+    var phoneImageArray: [UIImage] = [UIImage]()
+    
   // MARK: Object lifecycle
   
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     setup()
   }
   
-  required init?(coder aDecoder: NSCoder)
-  {
+  required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setup()
   }
   
   // MARK: Setup
   
-  private func setup()
-  {
+  private func setup() {
     let viewController = self
     let interactor = PhoneDetailsInteractor()
     let presenter = PhoneDetailsPresenter()
@@ -54,8 +67,7 @@ class PhoneDetailsViewController: UIViewController, PhoneDetailsDisplayLogic
   
   // MARK: Routing
   
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if let scene = segue.identifier {
       let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
       if let router = router, router.responds(to: selector) {
@@ -66,24 +78,63 @@ class PhoneDetailsViewController: UIViewController, PhoneDetailsDisplayLogic
   
   // MARK: View lifecycle
   
-  override func viewDidLoad()
-  {
+  override func viewDidLoad() {
     super.viewDidLoad()
-    doSomething()
+    getPhoneDetailData()
   }
   
   // MARK: Do something
-  
-  //@IBOutlet weak var nameTextField: UITextField!
-  
-  func doSomething()
-  {
-    let request = PhoneDetails.Something.Request()
-    interactor?.doSomething(request: request)
-  }
-  
-  func displaySomething(viewModel: PhoneDetails.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
-  }
+    func getPhoneDetailData() {
+        //Show Loading
+        hud.textLabel.text = "Loading"
+        hud.show(in: self.view)
+        
+        interactor?.getPhoneDetailImageList()
+        interactor?.getPhoneDetail(phoneName: &name, description: &phoneDescription, phonePrice: &price, phoneRating: &rating)
+        
+        setupView()
+    }
+    
+    func getPhoneImageListDataSuccess(viewModel: PhoneDetails.PhoneImageList.ViewModel) {
+        guard let phoneImageList = viewModel.result else { return getPhoneImageListDataFailed() }
+        interactor?.getPhoneDetailImage(imageURL: phoneImageList.imageURL)
+    }
+    
+    func getPhoneImageListDataFailed() {
+        let alert = UIAlertController(title: "Fail", message: "No Result", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    func getPhoneImageSuccess(viewModel: PhoneDetails.PhoneImage.ViewModel) {
+        //Hide Loading
+        hud.dismiss()
+        
+        phoneImageArray.append(viewModel.phoneImage)
+        showScrollView()
+    }
+    
+    func setupView() {
+        navigationItem.title = name
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black,
+        NSAttributedString.Key.font: UIFont(name: "Helvetica-Bold", size: 20) as Any]
+    
+        ratingLabel.text = "Rating : \(String(rating))"
+        priceLabel.text = "Price : $\(String(price))"
+        phoneDescriptionLabel.text = phoneDescription
+    }
+    
+    func showScrollView() {
+        phoneImageScrollView.isPagingEnabled = true
+        
+        for item in 0..<phoneImageArray.count {
+            let imageView = UIImageView()
+            imageView.image = phoneImageArray[item]
+            imageView.contentMode = .scaleAspectFit
+            let xPosition = self.view.frame.width * CGFloat(item)
+            imageView.frame = CGRect(x: xPosition, y: 0, width: self.phoneImageScrollView.frame.width, height: phoneImageScrollView.frame.height)
+            phoneImageScrollView.contentSize.width = phoneImageScrollView.frame.width * CGFloat(item + 1)
+            phoneImageScrollView.addSubview(imageView)
+        }
+    }
 }

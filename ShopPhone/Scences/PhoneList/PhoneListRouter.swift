@@ -12,49 +12,40 @@
 
 import UIKit
 
-@objc protocol PhoneListRoutingLogic
-{
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+import UIKit
+
+@objc protocol PhoneListRoutingLogic {
+  func routeToPhoneDetails(segue: UIStoryboardSegue?)
 }
 
-protocol PhoneListDataPassing
-{
+protocol PhoneListDataPassing {
   var dataStore: PhoneListDataStore? { get }
 }
 
-class PhoneListRouter: NSObject, PhoneListRoutingLogic, PhoneListDataPassing
-{
+class PhoneListRouter: NSObject, PhoneListRoutingLogic, PhoneListDataPassing {
   weak var viewController: PhoneListViewController?
   var dataStore: PhoneListDataStore?
   
   // MARK: Routing
-  
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
+    func routeToPhoneDetails(segue: UIStoryboardSegue?) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let destinationVC = storyboard.instantiateViewController(withIdentifier: "PhoneDetailsViewController") as! PhoneDetailsViewController
+        var destinationDS = destinationVC.router!.dataStore!
+        passDataToPhoneDetails(source: dataStore!, destination: &destinationDS)
+        navigateToPhoneDetails(source: viewController!, destination: destinationVC)
+    }
 
   // MARK: Navigation
-  
-  //func navigateToSomewhere(source: PhoneListViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
+  func passDataToPhoneDetails(source: PhoneListDataStore, destination: inout PhoneDetailsDataStore) {
+      destination.phoneId = source.phoneId
+    destination.name = source.name
+    destination.phoneDescription = source.phoneDescription
+    destination.price = source.price
+    destination.rating = source.rating
+  }
   
   // MARK: Passing data
-  
-  //func passDataToSomewhere(source: PhoneListDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+  func navigateToPhoneDetails(source: PhoneListViewController, destination: PhoneDetailsViewController) {
+      source.show(destination, sender: nil)
+   }
 }

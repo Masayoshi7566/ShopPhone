@@ -12,20 +12,25 @@
 
 import UIKit
 
-protocol PhoneDetailsPresentationLogic
-{
-  func presentSomething(response: PhoneDetails.Something.Response)
+protocol PhoneDetailsPresentationLogic {
+    func presentPhoneImageListData(response: PhoneDetails.PhoneImageList.Response)
+    func presentPhoneImage(response: PhoneDetails.PhoneImage.Response)
 }
 
-class PhoneDetailsPresenter: PhoneDetailsPresentationLogic
-{
+class PhoneDetailsPresenter: PhoneDetailsPresentationLogic {
   weak var viewController: PhoneDetailsDisplayLogic?
   
-  // MARK: Do something
-  
-  func presentSomething(response: PhoneDetails.Something.Response)
-  {
-    let viewModel = PhoneDetails.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
-  }
+    func presentPhoneImageListData(response: PhoneDetails.PhoneImageList.Response) {
+        if response.result != nil {
+            let viewModel = PhoneDetails.PhoneImageList.ViewModel(result: response.result)
+            viewController?.getPhoneImageListDataSuccess(viewModel: viewModel)
+        } else {
+            viewController?.getPhoneImageListDataFailed()
+        }
+    }
+    
+    func presentPhoneImage(response: PhoneDetails.PhoneImage.Response) {
+        let viewModel = PhoneDetails.PhoneImage.ViewModel(phoneImage: response.phoneImage)
+        viewController?.getPhoneImageSuccess(viewModel: viewModel)
+    }
 }

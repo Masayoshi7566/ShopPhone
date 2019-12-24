@@ -12,20 +12,31 @@
 
 import UIKit
 
-protocol PhoneListPresentationLogic
-{
-  func presentSomething(response: PhoneList.Something.Response)
+protocol PhoneListPresentationLogic {
+    func presentAllPhoneListData(response: PhoneList.PhoneData.Response)
+    func presentPhoneDetails()
+    func presentUpdateFavouritePhoneCell()
+    func presentFavouritePhoneData(response: PhoneList.PhoneFavourite.Response)
 }
 
-class PhoneListPresenter: PhoneListPresentationLogic
-{
+class PhoneListPresenter: PhoneListPresentationLogic {
   weak var viewController: PhoneListDisplayLogic?
+    
+    func presentAllPhoneListData(response: PhoneList.PhoneData.Response) {
+        let viewModel = PhoneList.PhoneData.ViewModel(result: response.result)
+        viewController?.getAllPhoneListDataSuccess(viewModel: viewModel)
+    }
   
-  // MARK: Do something
-  
-  func presentSomething(response: PhoneList.Something.Response)
-  {
-    let viewModel = PhoneList.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
-  }
+    func presentPhoneDetails() {
+        viewController?.navigateToPhoneDetails()
+    }
+    
+    func presentUpdateFavouritePhoneCell() {
+        viewController?.updateFavouritePhoneCell()
+    }
+    
+    func presentFavouritePhoneData(response: PhoneList.PhoneFavourite.Response) {
+        let viewModel = PhoneList.PhoneFavourite.ViewModel(result: response.result)
+        viewController?.getFavouritePhoneData(viewModel: viewModel)
+    }
 }
