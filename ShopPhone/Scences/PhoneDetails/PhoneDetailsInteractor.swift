@@ -53,7 +53,8 @@ class PhoneDetailsInteractor: PhoneDetailsBusinessLogic, PhoneDetailsDataStore {
                 let response = PhoneDetails.PhoneImageList.Response(result: data)
                 self.presenter?.presentPhoneImageListData(response: response)
             case .Error(let error):
-                print("Error Get Image Data: \(error.localizedDescription)")
+                print("Error Can't Get Path Phone Image : \(error.localizedDescription)")
+                self.presenter?.presentAlertCannotGetPhoneImage()
             }
         })
     }
@@ -67,7 +68,8 @@ class PhoneDetailsInteractor: PhoneDetailsBusinessLogic, PhoneDetailsDataStore {
                 let response = PhoneDetails.PhoneImage.Response(phoneImage: image)
                 self.presenter?.presentPhoneImage(response: response)
             case .Error(let error):
-                print("Error Get Image Data: \(error.localizedDescription)")
+                print("Error Get Phone Image: \(error.localizedDescription)")
+                self.presenter?.presentAlertCannotGetPhoneImage()
             }
         })
     }

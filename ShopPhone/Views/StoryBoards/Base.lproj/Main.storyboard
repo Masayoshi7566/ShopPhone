@@ -15,7 +15,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rp1-ba-8x2">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rp1-ba-8x2">
                                 <rect key="frame" x="0.0" y="71.5" width="320" height="496.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
@@ -98,13 +98,20 @@
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p8g-1V-BGD">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="199"/>
                                             </imageView>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ddU-KU-AdT">
+                                                <rect key="frame" x="141.5" y="96" width="37" height="37"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="color" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="ddU-KU-AdT" firstAttribute="centerX" secondItem="p8g-1V-BGD" secondAttribute="centerX" id="676-tH-6Dz"/>
                                             <constraint firstItem="p8g-1V-BGD" firstAttribute="top" secondItem="EsK-G0-oKz" secondAttribute="top" id="IXP-Pg-pqs"/>
                                             <constraint firstItem="p8g-1V-BGD" firstAttribute="centerY" secondItem="EsK-G0-oKz" secondAttribute="centerY" id="LVy-zN-3gh"/>
                                             <constraint firstAttribute="bottom" secondItem="p8g-1V-BGD" secondAttribute="bottom" id="Lhg-lF-0hs"/>
                                             <constraint firstItem="p8g-1V-BGD" firstAttribute="height" secondItem="EsK-G0-oKz" secondAttribute="height" id="W4S-Bd-67F"/>
                                             <constraint firstItem="p8g-1V-BGD" firstAttribute="width" secondItem="EsK-G0-oKz" secondAttribute="width" id="gPW-LC-VmZ"/>
+                                            <constraint firstItem="ddU-KU-AdT" firstAttribute="centerY" secondItem="p8g-1V-BGD" secondAttribute="centerY" constant="15" id="nWI-Ax-qnH"/>
                                             <constraint firstAttribute="trailing" secondItem="p8g-1V-BGD" secondAttribute="trailing" id="seG-bK-xgL"/>
                                             <constraint firstItem="p8g-1V-BGD" firstAttribute="centerX" secondItem="EsK-G0-oKz" secondAttribute="centerX" id="uTg-d1-ZYZ"/>
                                             <constraint firstItem="p8g-1V-BGD" firstAttribute="leading" secondItem="EsK-G0-oKz" secondAttribute="leading" id="vNa-lA-b1h"/>
@@ -179,6 +186,7 @@
                         <viewLayoutGuide key="safeArea" id="FTY-as-Sjq"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="ddU-KU-AdT" id="bw9-O8-DT8"/>
                         <outlet property="phoneDescriptionLabel" destination="ucx-C5-rxd" id="SSy-6f-NYb"/>
                         <outlet property="phoneImage" destination="p8g-1V-BGD" id="kyV-ex-1x8"/>
                         <outlet property="phoneImageScrollView" destination="EsK-G0-oKz" id="VMv-40-dEU"/>

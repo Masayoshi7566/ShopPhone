@@ -19,6 +19,7 @@ protocol PhoneListDisplayLogic: class {
   func getAllPhoneListDataFailed()
   func navigateToPhoneDetails()
   func updateFavouritePhoneCell()
+  func showAlertConnectionFail()
   func getFavouritePhoneData(viewModel: PhoneList.PhoneFavourite.ViewModel)
 }
 
@@ -44,6 +45,18 @@ class PhoneListViewController: UIViewController, PhoneListDisplayLogic {
     var interactor: PhoneListBusinessLogic?
     var router: (NSObjectProtocol & PhoneListRoutingLogic & PhoneListDataPassing)?
     let hud = JGProgressHUD(style: .extraLight)
+    let connectionInternet = ConnectionManager.sharedInstance
+    var isNotConnectInternet: Bool = false
+    
+    //Pull to refresh
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+                     #selector(PhoneListViewController.handleRefresh(_:)),
+                                 for: UIControl.Event.valueChanged)
+        refreshControl.tintColor = UIColor.lightGray
+        return refreshControl
+    }()
 
   // MARK: Object lifecycle
   
@@ -87,8 +100,8 @@ class PhoneListViewController: UIViewController, PhoneListDisplayLogic {
   
  override func viewDidLoad() {
       super.viewDidLoad()
-      setupView()
-      setupTableView()
+      //Check Internet Connection First
+      checkInternetNotAvailable()
  }
 
   func setupView() {
@@ -104,21 +117,56 @@ class PhoneListViewController: UIViewController, PhoneListDisplayLogic {
       phoneListTable.delegate = self
       phoneListTable.dataSource = self
       phoneListTable.backgroundColor = .clear
-      phoneListTable.separatorColor = .clear
-      phoneListTable.separatorInset = UIEdgeInsets.init(top: .zero, left: 8, bottom: .zero, right: 8)
+      phoneListTable.addSubview(self.refreshControl)
   }
+    
+  func checkInternetNotAvailable() {
+      connectionInternet.reachability?.whenUnreachable = { reachability in
+         self.isNotConnectInternet = true
+         self.showAlertConnectionFail()
+      }
+    
+     //Setup View
+     if isNotConnectInternet {
+        navigationItem.rightBarButtonItem?.isEnabled = false
+        menuScreenSegment.isEnabled = false
+     } else {
+        setupView()
+        setupTableView()
+     }
+  }
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        //Delete Old PhoneList Data to Update the new one.(Only Tap All)
+        if isFromFavoriteTap {
+           refreshControl.endRefreshing()
+           return
+        } else {
+            allPhoneList.removeAll()
+            getAllPhoneListData(showLoading: false)
+            refreshControl.endRefreshing()
+        }
+    }
+    
+   func showAlertConnectionFail() {
+        hud.dismiss()
+        let alert = UIAlertController(title: "Connection failed!", message: "Unable to connect Internet. \nPlease try again.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    
+        self.present(alert, animated: true)
+   }
   
   func getAllPhoneListData(showLoading: Bool) {
       interactor?.getAllPhoneListData()
       
         if showLoading {
-            setupShowLoading()
+            showLoadingHUD()
         } else {
             return
         }
   }
     
-  func setupShowLoading() {
+  func showLoadingHUD() {
      hud.textLabel.text = "Loading"
      hud.show(in: self.view)
   }
@@ -132,7 +180,6 @@ class PhoneListViewController: UIViewController, PhoneListDisplayLogic {
     
       allPhoneList.append(viewModel.result)
       phoneListData = allPhoneList
-      phoneListTable.separatorColor = .placeholderText
       phoneListTable.reloadData()
   }
   
@@ -211,13 +258,13 @@ class PhoneListViewController: UIViewController, PhoneListDisplayLogic {
     }
     
     @IBAction func menuScreenSegmentTapped(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 1 {
+        if sender.selectedSegmentIndex == 1 { //Tap Favourite
             isFromFavoriteTap = true
             getPhoneFavoriteData()
-        } else {
+        } else { //Tap All
             isFromFavoriteTap = false
             
-            //Delete Favourite Phone List Before Update New All Phone List
+            //Delete Favourite Phone List Before go to all tap
             phoneListData.removeAll()
             phoneListData = allPhoneList
             phoneListTable.reloadData()

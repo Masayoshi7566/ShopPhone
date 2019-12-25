@@ -69,6 +69,7 @@ class PhoneListInteractor: PhoneListBusinessLogic, PhoneListDataStore {
                 self.presenter?.presentAllPhoneListData(response: response)
             case .Error(let error):
                 print("Error Get Phone Data: \(error.localizedDescription)")
+                self.presenter?.presentAlertConnectionFail()
             }
         })
     }

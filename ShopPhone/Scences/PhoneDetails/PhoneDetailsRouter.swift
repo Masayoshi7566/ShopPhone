@@ -12,49 +12,16 @@
 
 import UIKit
 
-@objc protocol PhoneDetailsRoutingLogic
-{
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+@objc protocol PhoneDetailsRoutingLogic {
+
 }
 
-protocol PhoneDetailsDataPassing
-{
+protocol PhoneDetailsDataPassing {
   var dataStore: PhoneDetailsDataStore? { get }
 }
 
-class PhoneDetailsRouter: NSObject, PhoneDetailsRoutingLogic, PhoneDetailsDataPassing
-{
+class PhoneDetailsRouter: NSObject, PhoneDetailsRoutingLogic, PhoneDetailsDataPassing {
   weak var viewController: PhoneDetailsViewController?
   var dataStore: PhoneDetailsDataStore?
   
-  // MARK: Routing
-  
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
-
-  // MARK: Navigation
-  
-  //func navigateToSomewhere(source: PhoneDetailsViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
-  
-  // MARK: Passing data
-  
-  //func passDataToSomewhere(source: PhoneDetailsDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
 }

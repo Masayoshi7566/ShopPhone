@@ -5,3 +5,4 @@ github "SwiftyJSON/SwiftyJSON" ~> 5.0
 github "tristanhimmelman/ObjectMapper" ~> 3.5.1
 github "Alamofire/Alamofire" "5.0.0-rc.3"
 github "JonasGessner/JGProgressHUD"
+github "ashleymills/Reachability.swift"

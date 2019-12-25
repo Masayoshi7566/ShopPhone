@@ -15,6 +15,7 @@ import UIKit
 protocol PhoneDetailsPresentationLogic {
     func presentPhoneImageListData(response: PhoneDetails.PhoneImageList.Response)
     func presentPhoneImage(response: PhoneDetails.PhoneImage.Response)
+    func presentAlertCannotGetPhoneImage()
 }
 
 class PhoneDetailsPresenter: PhoneDetailsPresentationLogic {
@@ -32,5 +33,9 @@ class PhoneDetailsPresenter: PhoneDetailsPresentationLogic {
     func presentPhoneImage(response: PhoneDetails.PhoneImage.Response) {
         let viewModel = PhoneDetails.PhoneImage.ViewModel(phoneImage: response.phoneImage)
         viewController?.getPhoneImageSuccess(viewModel: viewModel)
+    }
+    
+    func presentAlertCannotGetPhoneImage() {
+        viewController?.showAlertCannotGetPhoneImage()
     }
 }

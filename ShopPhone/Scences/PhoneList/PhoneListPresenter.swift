@@ -17,6 +17,7 @@ protocol PhoneListPresentationLogic {
     func presentPhoneDetails()
     func presentUpdateFavouritePhoneCell()
     func presentFavouritePhoneData(response: PhoneList.PhoneFavourite.Response)
+    func presentAlertConnectionFail()
 }
 
 class PhoneListPresenter: PhoneListPresentationLogic {
@@ -38,5 +39,9 @@ class PhoneListPresenter: PhoneListPresentationLogic {
     func presentFavouritePhoneData(response: PhoneList.PhoneFavourite.Response) {
         let viewModel = PhoneList.PhoneFavourite.ViewModel(result: response.result)
         viewController?.getFavouritePhoneData(viewModel: viewModel)
+    }
+    
+    func presentAlertConnectionFail() {
+        viewController?.showAlertConnectionFail()
     }
 }

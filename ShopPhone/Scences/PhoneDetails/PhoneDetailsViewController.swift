@@ -18,6 +18,7 @@ protocol PhoneDetailsDisplayLogic: class {
    func getPhoneImageListDataSuccess(viewModel: PhoneDetails.PhoneImageList.ViewModel)
    func getPhoneImageListDataFailed()
    func getPhoneImageSuccess(viewModel: PhoneDetails.PhoneImage.ViewModel)
+   func showAlertCannotGetPhoneImage()
 }
 
 class PhoneDetailsViewController: UIViewController, PhoneDetailsDisplayLogic {
@@ -30,8 +31,8 @@ class PhoneDetailsViewController: UIViewController, PhoneDetailsDisplayLogic {
     @IBOutlet weak var phoneImageScrollView: UIScrollView!
     @IBOutlet weak var phoneImageView: UIView!
     @IBOutlet weak var phoneImage: UIImageView!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
-    let hud = JGProgressHUD(style: .extraLight)
     var name: String = ""
     var phoneDescription: String = ""
     var price: Double = 0.0
@@ -86,8 +87,7 @@ class PhoneDetailsViewController: UIViewController, PhoneDetailsDisplayLogic {
   // MARK: Do something
     func getPhoneDetailData() {
         //Show Loading
-        hud.textLabel.text = "Loading"
-        hud.show(in: self.view)
+        activityIndicatorView.startAnimating()
         
         interactor?.getPhoneDetailImageList()
         interactor?.getPhoneDetail(phoneName: &name, description: &phoneDescription, phonePrice: &price, phoneRating: &rating)
@@ -101,17 +101,29 @@ class PhoneDetailsViewController: UIViewController, PhoneDetailsDisplayLogic {
     }
     
     func getPhoneImageListDataFailed() {
-        let alert = UIAlertController(title: "Fail", message: "No Result", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Failed!", message: "No Result", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
         self.present(alert, animated: true)
     }
     
+    func showAlertCannotGetPhoneImage() {
+         hideActivityIndicator() 
+         let alert = UIAlertController(title: "Failed!", message: "Can not get Phone Image. \nPlease try again.", preferredStyle: .alert)
+         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+         self.present(alert, animated: true)
+    }
+    
     func getPhoneImageSuccess(viewModel: PhoneDetails.PhoneImage.ViewModel) {
         //Hide Loading
-        hud.dismiss()
+        hideActivityIndicator()
         
         phoneImageArray.append(viewModel.phoneImage)
         showScrollView()
+    }
+    
+    func hideActivityIndicator() {
+        activityIndicatorView.stopAnimating()
+        activityIndicatorView.isHidden = true
     }
     
     func setupView() {
