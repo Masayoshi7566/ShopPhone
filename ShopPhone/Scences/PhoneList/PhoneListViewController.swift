@@ -13,6 +13,7 @@
 import UIKit
 import Kingfisher
 import JGProgressHUD
+import Reachability
 
 protocol PhoneListDisplayLogic: class {
   func getAllPhoneListDataSuccess(viewModel: PhoneList.PhoneData.ViewModel)
@@ -47,6 +48,7 @@ class PhoneListViewController: UIViewController, PhoneListDisplayLogic {
     let hud = JGProgressHUD(style: .extraLight)
     let connectionInternet = ConnectionManager.sharedInstance
     var isNotConnectInternet: Bool = false
+    var isFromViewDidLoad: Bool = false
     
     //Pull to refresh
     lazy var refreshControl: UIRefreshControl = {
@@ -100,16 +102,17 @@ class PhoneListViewController: UIViewController, PhoneListDisplayLogic {
   
  override func viewDidLoad() {
       super.viewDidLoad()
-      //Check Internet Connection First
-      checkInternetNotAvailable()
+      isFromViewDidLoad = true
+      setupView()
+      //Check Internet Connection 
+      checkInternetConnection()
  }
 
   func setupView() {
       navigationItem.hidesBackButton = true
       navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(sortButtonTapped))
-    
       menuScreenSegment.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Helvetica-Bold", size: 20.0) as Any], for: .normal)
-      getAllPhoneListData(showLoading: true)
+      phoneListTable.addSubview(self.refreshControl)
   }
   
   func setupTableView() {
@@ -117,42 +120,52 @@ class PhoneListViewController: UIViewController, PhoneListDisplayLogic {
       phoneListTable.delegate = self
       phoneListTable.dataSource = self
       phoneListTable.backgroundColor = .clear
-      phoneListTable.addSubview(self.refreshControl)
   }
     
-  func checkInternetNotAvailable() {
+  func checkInternetConnection() {
+      //Check Network is Not Available
       connectionInternet.reachability?.whenUnreachable = { reachability in
-         self.isNotConnectInternet = true
          self.showAlertConnectionFail()
+         self.hideRefreshLoading()
       }
-    
-     //Setup View
-     if isNotConnectInternet {
-        navigationItem.rightBarButtonItem?.isEnabled = false
-        menuScreenSegment.isEnabled = false
-     } else {
-        setupView()
-        setupTableView()
-     }
+      //Check Network is Available
+      ConnectionManager.isReachable(completed: { connectionInternet in
+          self.showView()
+      })
   }
     
-    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
-        //Delete Old PhoneList Data to Update the new one.(Only Tap All)
-        if isFromFavoriteTap {
-           refreshControl.endRefreshing()
-           return
-        } else {
+    func showView() {
+        if isFromViewDidLoad {
+            isFromViewDidLoad = false
+            getAllPhoneListData(showLoading: true)
+            setupTableView()
+        } else {//Setup view for refreshing
             allPhoneList.removeAll()
             getAllPhoneListData(showLoading: false)
-            refreshControl.endRefreshing()
         }
     }
     
-   func showAlertConnectionFail() {
-        hud.dismiss()
-        let alert = UIAlertController(title: "Connection failed!", message: "Unable to connect Internet. \nPlease try again.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        hideRefreshLoading()
+        if isFromFavoriteTap {
+            return
+        }
+        checkInternetConnection()
+    }
     
+    func hideRefreshLoading() {
+        refreshControl.endRefreshing()
+        phoneListTable.contentOffset = .zero
+    }
+    
+   func showAlertConnectionFail() {
+        //Hide HUD Loading
+        hud.dismiss()
+    
+        let alert = UIAlertController(title: "Connection failed!", message: "Unable to connect Internet. \nPlease try again.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { UIAlertAction in
+            self.connectionInternet.reachability?.allowsCellularConnection = true
+        })
         self.present(alert, animated: true)
    }
   
