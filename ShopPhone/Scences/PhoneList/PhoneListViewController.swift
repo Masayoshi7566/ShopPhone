@@ -104,7 +104,7 @@ class PhoneListViewController: UIViewController, PhoneListDisplayLogic {
       super.viewDidLoad()
       isFromViewDidLoad = true
       setupView()
-      //Check Internet Connection 
+      //Check Internet Connection
       checkInternetConnection()
  }
 
@@ -162,11 +162,19 @@ class PhoneListViewController: UIViewController, PhoneListDisplayLogic {
         //Hide HUD Loading
         hud.dismiss()
     
-        let alert = UIAlertController(title: "Connection failed!", message: "Unable to connect Internet. \nPlease try again.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default) { UIAlertAction in
-            self.connectionInternet.reachability?.allowsCellularConnection = true
+        let internetAlert = UIAlertController(title: "Connection failed!", message: "Unable to connect Internet. \nPlease try connecting again.", preferredStyle: .alert)
+        internetAlert.addAction(UIAlertAction(title: "Setting", style: .default) { UIAlertAction in
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                return
+            }
+            
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    print("Settings opened: \(success)")
+                })
+            }
         })
-        self.present(alert, animated: true)
+        self.present(internetAlert, animated: true)
    }
   
   func getAllPhoneListData(showLoading: Bool) {

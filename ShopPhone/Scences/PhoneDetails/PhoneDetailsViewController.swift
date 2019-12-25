@@ -108,7 +108,7 @@ class PhoneDetailsViewController: UIViewController, PhoneDetailsDisplayLogic {
     
     func showAlertCannotGetPhoneImage() {
          hideActivityIndicator() 
-         let alert = UIAlertController(title: "Failed!", message: "Can not get Phone Image. \nPlease try again.", preferredStyle: .alert)
+         let alert = UIAlertController(title: "Failed!", message: "Can not get Phone Image.", preferredStyle: .alert)
          alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
          self.present(alert, animated: true)
     }
