@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController storyboardIdentifier="SplashScreenViewController" id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ASR-yR-wa0">
+                                <rect key="frame" x="31.5" y="197.5" width="257" height="173"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SplashScreenImage" translatesAutoresizingMaskIntoConstraints="NO" id="0js-AQ-9MQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="257" height="173"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="0js-AQ-9MQ" firstAttribute="top" secondItem="ASR-yR-wa0" secondAttribute="top" id="FH4-N4-vDA"/>
+                                    <constraint firstItem="0js-AQ-9MQ" firstAttribute="leading" secondItem="ASR-yR-wa0" secondAttribute="leading" id="Oj3-Xh-7Si"/>
+                                    <constraint firstAttribute="bottom" secondItem="0js-AQ-9MQ" secondAttribute="bottom" id="fV8-JK-qPp"/>
+                                    <constraint firstAttribute="trailing" secondItem="0js-AQ-9MQ" secondAttribute="trailing" id="xC0-sn-qDO"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.98438459629999997" green="0.98817938569999997" blue="0.99215751890000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="ASR-yR-wa0" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.304577" id="3Nk-0i-zbQ"/>
+                            <constraint firstItem="ASR-yR-wa0" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="HX5-QB-IUt"/>
+                            <constraint firstItem="ASR-yR-wa0" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.803125" id="V32-Fh-dxm"/>
+                            <constraint firstItem="ASR-yR-wa0" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="qi7-Xx-UXy"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52.5" y="375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="SplashScreenImage" width="512" height="512"/>
+    </resources>
+</document>
