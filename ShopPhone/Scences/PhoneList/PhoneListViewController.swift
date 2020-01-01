@@ -15,7 +15,7 @@ import Kingfisher
 import JGProgressHUD
 import Reachability
 
-protocol PhoneListDisplayLogic: class {
+protocol PhoneListDisplayLogic: AnyObject {
   func getAllPhoneListDataSuccess(viewModel: PhoneList.PhoneData.ViewModel)
   func getAllPhoneListDataFailed()
   func navigateToPhoneDetails()
@@ -47,8 +47,6 @@ class PhoneListViewController: UIViewController, PhoneListDisplayLogic {
     var router: (NSObjectProtocol & PhoneListRoutingLogic & PhoneListDataPassing)?
     let hud = JGProgressHUD(style: .extraLight)
     let connectionInternet = ConnectionManager.sharedInstance
-    var isNotConnectInternet: Bool = false
-    var isFromViewDidLoad: Bool = false
     
     //Pull to refresh
     lazy var refreshControl: UIRefreshControl = {
@@ -102,10 +100,15 @@ class PhoneListViewController: UIViewController, PhoneListDisplayLogic {
   
  override func viewDidLoad() {
       super.viewDidLoad()
-      isFromViewDidLoad = true
       setupView()
+    
       //Check Internet Connection
-      checkInternetConnection()
+      checkInternetConnection(completion: { [weak self] isDone in
+        if isDone {
+            self?.getAllPhoneListData(showLoading: true)
+            self?.setupTableView()
+        }
+    })
  }
 
   func setupView() {
@@ -122,7 +125,7 @@ class PhoneListViewController: UIViewController, PhoneListDisplayLogic {
       phoneListTable.backgroundColor = .clear
   }
     
-  func checkInternetConnection() {
+  func checkInternetConnection(completion: @escaping(_ isDone: Bool) -> Void) {
       //Check Network is Not Available
       connectionInternet.reachability?.whenUnreachable = { reachability in
          self.showAlertConnectionFail()
@@ -130,19 +133,13 @@ class PhoneListViewController: UIViewController, PhoneListDisplayLogic {
       }
       //Check Network is Available
       ConnectionManager.isReachable(completed: { connectionInternet in
-          self.showView()
+          completion(true)
       })
   }
     
-    func showView() {
-        if isFromViewDidLoad {
-            isFromViewDidLoad = false
-            getAllPhoneListData(showLoading: true)
-            setupTableView()
-        } else {//Setup view for refreshing
-            allPhoneList.removeAll()
-            getAllPhoneListData(showLoading: false)
-        }
+    func refreshView() {
+        allPhoneList.removeAll()
+        getAllPhoneListData(showLoading: false)
     }
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
@@ -150,7 +147,12 @@ class PhoneListViewController: UIViewController, PhoneListDisplayLogic {
         if isFromFavoriteTap {
             return
         }
-        checkInternetConnection()
+        
+        checkInternetConnection(completion: { [weak self] isDone in
+            if isDone {
+               self?.refreshView()
+            }
+        })
     }
     
     func hideRefreshLoading() {
@@ -174,6 +176,8 @@ class PhoneListViewController: UIViewController, PhoneListDisplayLogic {
                 })
             }
         })
+        internetAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+    
         self.present(internetAlert, animated: true)
    }
   
@@ -193,14 +197,15 @@ class PhoneListViewController: UIViewController, PhoneListDisplayLogic {
   }
 
   func getPhoneFavoriteData() {
-     interactor?.getFavouritePhone()
+     interactor?.getFavouritePhoneData()
   }
   
   func getAllPhoneListDataSuccess(viewModel: PhoneList.PhoneData.ViewModel) {
       hud.dismiss()
     
       allPhoneList.append(viewModel.result)
-      phoneListData = allPhoneList
+      //Remove Duplicate Data when refresh many times
+      phoneListData = allPhoneList.removeDuplicate()
       phoneListTable.reloadData()
   }
   
@@ -341,7 +346,8 @@ extension PhoneListViewController: UITableViewDataSource, UITableViewDelegate {
           } else {
               self.itemIndexPath = indexPath
               phoneCell?.isFavourite = true
-              self.interactor?.addFavoritePhone(data: phoneData)
+              let request = PhoneList.PhoneFavourite.Request(favouritePhone: phoneData)
+              self.interactor?.addFavoritePhone(request: request)
           }
       }
     

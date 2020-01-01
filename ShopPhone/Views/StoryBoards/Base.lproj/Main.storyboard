@@ -84,7 +84,7 @@
         <!--Phone Details View Controller-->
         <scene sceneID="ZPt-Bw-ng6">
             <objects>
-                <viewController storyboardIdentifier="PhoneDetailsViewController" id="Dgt-Sx-00y" customClass="PhoneDetailsViewController" customModule="ShopPhone" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PhoneDetailsViewController" id="Dgt-Sx-00y" customClass="PhoneDetailsViewController" customModule="ShopPhoneTests" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bxi-gu-L2o">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -33,6 +33,9 @@ enum PhoneList {
     }
     
     enum PhoneFavourite {
+        struct Request {
+            var favouritePhone: PhoneDataModel?
+        }
         struct Response {
             var result: [Int]
         }

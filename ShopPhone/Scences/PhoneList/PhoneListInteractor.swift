@@ -15,8 +15,8 @@ import Moya
 protocol PhoneListBusinessLogic {
   func passDataToPhoneDetails(request: PhoneList.PhoneDetails.Request)
   func getAllPhoneListData()
-  func getFavouritePhone()
-  func addFavoritePhone(data: PhoneDataModel) 
+  func getFavouritePhoneData()
+  func addFavoritePhone(request: PhoneList.PhoneFavourite.Request)
   func unFavouritePhone(id: Int)
 }
 
@@ -80,13 +80,14 @@ class PhoneListInteractor: PhoneListBusinessLogic, PhoneListDataStore {
         self.presenter?.presentUpdateFavouritePhoneCell()
     }
     
-    func addFavoritePhone(data: PhoneDataModel) {
+    func addFavoritePhone(request: PhoneList.PhoneFavourite.Request) {
         prepare()
-        self.realmManager?.addFavouritePhone(phoneData: data)
+        guard let phoneData = request.favouritePhone else { return }
+        self.realmManager?.addFavouritePhone(phoneData: phoneData)
         self.presenter?.presentUpdateFavouritePhoneCell()
     }
     
-    func getFavouritePhone() {
+    func getFavouritePhoneData() {
         prepare()
         guard let allFavouritePhoneId = realmManager?.getAllFavoritePhoneId() else { return }
         let response = PhoneList.PhoneFavourite.Response(result: allFavouritePhoneId)

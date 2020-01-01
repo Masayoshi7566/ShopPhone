@@ -12,8 +12,6 @@
 
 import UIKit
 
-import UIKit
-
 @objc protocol PhoneListRoutingLogic {
   func routeToPhoneDetails(segue: UIStoryboardSegue?)
 }

@@ -12,6 +12,7 @@
 		270D5A4623B05FA500A88C6F /* JGProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 270D5A4523B05FA500A88C6F /* JGProgressHUD.framework */; };
 		270D5A4723B05FA500A88C6F /* JGProgressHUD.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 270D5A4523B05FA500A88C6F /* JGProgressHUD.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		272F532723AF0CF90075E03A /* PhoneImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F532623AF0CF90075E03A /* PhoneImageModel.swift */; };
+		273B118F23B3AE6500865B46 /* ModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D80E7D23ADA1B80027AE96 /* ModelProtocol.swift */; platformFilter = ios; };
 		273BE58423B27992007693A8 /* Reachability.framework in Resources */ = {isa = PBXBuildFile; fileRef = 275B7D7723B2084D0084B4F2 /* Reachability.framework */; platformFilter = ios; };
 		273BE58523B279A7007693A8 /* Alamofire.framework in Resources */ = {isa = PBXBuildFile; fileRef = 27E6C9ED23ACC2FC00F13A69 /* Alamofire.framework */; platformFilter = ios; };
 		273BE58623B279AE007693A8 /* JGProgressHUD.framework in Resources */ = {isa = PBXBuildFile; fileRef = 270D5A4523B05FA500A88C6F /* JGProgressHUD.framework */; platformFilter = ios; };
@@ -30,13 +31,52 @@
 		273BE59323B284BF007693A8 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6C9F123ACC30700F13A69 /* Kingfisher.framework */; platformFilter = ios; };
 		273BE59423B284D9007693A8 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6CA0023ACC34E00F13A69 /* Realm.framework */; platformFilter = ios; };
 		273BE59523B2853D007693A8 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6C9F723ACC32200F13A69 /* ObjectMapper.framework */; platformFilter = ios; };
+		2745696B23B368CA00C4ECE0 /* PhoneDataModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2745696A23B368CA00C4ECE0 /* PhoneDataModelTest.swift */; platformFilter = ios; };
+		2745697123B3A5BB00C4ECE0 /* PhoneDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E6C9DE23ACB72300F13A69 /* PhoneDataModel.swift */; platformFilter = ios; };
 		275B7D7823B2084D0084B4F2 /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 275B7D7723B2084D0084B4F2 /* Reachability.framework */; };
 		275B7D7923B2084D0084B4F2 /* Reachability.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 275B7D7723B2084D0084B4F2 /* Reachability.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		275B7D7B23B20AA70084B4F2 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275B7D7A23B20AA70084B4F2 /* ConnectionManager.swift */; };
+		2761EC9C23B48BF7000E7B70 /* PhoneListWorkerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2761EC9723B48AC3000E7B70 /* PhoneListWorkerTest.swift */; platformFilter = ios; };
+		2761ECA223B4A11E000E7B70 /* PhoneImageWorkerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2761ECA123B4A11E000E7B70 /* PhoneImageWorkerTest.swift */; };
+		2761ECA823B4B328000E7B70 /* PhoneListPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2761ECA723B4B328000E7B70 /* PhoneListPresenterTest.swift */; };
+		2761ECAF23B4ED39000E7B70 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2761ECAE23B4ED39000E7B70 /* TestData.swift */; };
 		27627BDC23B2608000C52057 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6CA0023ACC34E00F13A69 /* Realm.framework */; };
 		27627BDD23B2609200C52057 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6C9FD23ACC33F00F13A69 /* RealmSwift.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		27627BDE23B260B400C52057 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6CA0023ACC34E00F13A69 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		27627BDF23B260B900C52057 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6C9FD23ACC33F00F13A69 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		279F63D323B4716E006ADDFD /* PhoneDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E6C9E923ACB77600F13A69 /* PhoneDataService.swift */; platformFilter = ios; };
+		27A7F6E123B6A94F00D5A639 /* RealmManagerFavourite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270D5A4323AF8DF600A88C6F /* RealmManagerFavourite.swift */; };
+		27A7F6E223B6A95400D5A639 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270D5A4123AF8D0D00A88C6F /* RealmManager.swift */; };
+		27A7F6F123B9EB4400D5A639 /* PhoneListDisplayLogicSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A7F6F023B9EB4400D5A639 /* PhoneListDisplayLogicSpy.swift */; };
+		27BACE5B23B9F9C500FB693B /* PhoneListBusinessLogicSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BACE5A23B9F9C500FB693B /* PhoneListBusinessLogicSpy.swift */; };
+		27BACE5D23BB042000FB693B /* PhoneListPresentationLogicSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BACE5C23BB042000FB693B /* PhoneListPresentationLogicSpy.swift */; };
+		27BACE5F23BB1E0E00FB693B /* PhoneListViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BACE5E23BB1E0E00FB693B /* PhoneListViewControllerTest.swift */; };
+		27BACE6123BB1EA300FB693B /* PhoneListRoutingLogicSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BACE6023BB1EA300FB693B /* PhoneListRoutingLogicSpy.swift */; };
+		27BACE6423BB54EE00FB693B /* PhoneListInteractorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BACE6323BB54EE00FB693B /* PhoneListInteractorTest.swift */; };
+		27BACE6523BC639300FB693B /* PhoneListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E6C9D223ACB6E100F13A69 /* PhoneListViewController.swift */; };
+		27BACE6623BC639600FB693B /* PhoneListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E6C9D323ACB6E100F13A69 /* PhoneListInteractor.swift */; };
+		27BACE6723BC639A00FB693B /* PhoneListModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E6C9D123ACB6E100F13A69 /* PhoneListModels.swift */; };
+		27BACE6823BC639D00FB693B /* PhoneListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E6C9D023ACB6E100F13A69 /* PhoneListRouter.swift */; };
+		27BACE6923BC63A000FB693B /* PhoneListWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E6C9CF23ACB6E100F13A69 /* PhoneListWorker.swift */; };
+		27BACE6A23BC63A300FB693B /* PhoneListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E6C9CE23ACB6E100F13A69 /* PhoneListPresenter.swift */; };
+		27BACE6B23BC63F300FB693B /* PhoneListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E6C9E223ACB73800F13A69 /* PhoneListViewCell.swift */; };
+		27BACE6C23BC640800FB693B /* PhoneListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27E6C9E023ACB73000F13A69 /* PhoneListCell.xib */; };
+		27BACE6D23BC641400FB693B /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275B7D7A23B20AA70084B4F2 /* ConnectionManager.swift */; };
+		27BACE6F23BC642B00FB693B /* PhoneDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E6C9C223ACB6CC00F13A69 /* PhoneDetailsPresenter.swift */; };
+		27BACE7023BC642E00FB693B /* PhoneDetailsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E6C9C323ACB6CC00F13A69 /* PhoneDetailsWorker.swift */; };
+		27BACE7123BC643100FB693B /* PhoneDetailsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E6C9C523ACB6CC00F13A69 /* PhoneDetailsModels.swift */; };
+		27BACE7223BC643300FB693B /* PhoneDetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E6C9C423ACB6CC00F13A69 /* PhoneDetailsRouter.swift */; };
+		27BACE7323BC643600FB693B /* PhoneDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E6C9C623ACB6CC00F13A69 /* PhoneDetailsViewController.swift */; };
+		27BACE7423BC643B00FB693B /* PhoneDetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E6C9C723ACB6CC00F13A69 /* PhoneDetailsInteractor.swift */; };
+		27BACE7523BC645E00FB693B /* PhoneImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272F532623AF0CF90075E03A /* PhoneImageModel.swift */; };
+		27BACE7623BC69E700FB693B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27E6C98E23ACAC2200F13A69 /* Main.storyboard */; };
+		27BACE7C23BD069400FB693B /* PhoneDetailsBusinessLogicSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BACE7B23BD069400FB693B /* PhoneDetailsBusinessLogicSpy.swift */; };
+		27BACE7E23BD081D00FB693B /* PhoneDetailsPresentationLogicSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BACE7D23BD081D00FB693B /* PhoneDetailsPresentationLogicSpy.swift */; };
+		27BACE8023BD08A200FB693B /* PhoneDetailsPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BACE7F23BD08A200FB693B /* PhoneDetailsPresenterTest.swift */; };
+		27BACE8223BD08E600FB693B /* PhoneDetailsDisplayLogicSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BACE8123BD08E600FB693B /* PhoneDetailsDisplayLogicSpy.swift */; };
+		27BACE8423BD090B00FB693B /* PhoneDetailsViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BACE8323BD090B00FB693B /* PhoneDetailsViewControllerTest.swift */; };
+		27BACE8623BD097900FB693B /* PhoneDetailsInteractorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BACE8523BD097900FB693B /* PhoneDetailsInteractorTest.swift */; };
+		27BACE8723BD116400FB693B /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6C9F423ACC31600F13A69 /* Moya.framework */; };
 		27D80E7E23ADA1B80027AE96 /* ModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D80E7D23ADA1B80027AE96 /* ModelProtocol.swift */; };
 		27E6C98923ACAC2200F13A69 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E6C98823ACAC2200F13A69 /* AppDelegate.swift */; };
 		27E6C98B23ACAC2200F13A69 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E6C98A23ACAC2200F13A69 /* SceneDelegate.swift */; };
@@ -64,13 +104,12 @@
 		27E6C9EF23ACC2FC00F13A69 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6C9ED23ACC2FC00F13A69 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		27E6C9F223ACC30700F13A69 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6C9F123ACC30700F13A69 /* Kingfisher.framework */; };
 		27E6C9F323ACC30700F13A69 /* Kingfisher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6C9F123ACC30700F13A69 /* Kingfisher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		27E6C9F523ACC31600F13A69 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6C9F423ACC31600F13A69 /* Moya.framework */; };
 		27E6C9F623ACC31600F13A69 /* Moya.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6C9F423ACC31600F13A69 /* Moya.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		27E6C9F823ACC32300F13A69 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6C9F723ACC32200F13A69 /* ObjectMapper.framework */; };
 		27E6C9F923ACC32300F13A69 /* ObjectMapper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6C9F723ACC32200F13A69 /* ObjectMapper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		27E6C9FB23ACC32E00F13A69 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6C9FA23ACC32E00F13A69 /* SwiftyJSON.framework */; };
 		27E6C9FC23ACC32E00F13A69 /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 27E6C9FA23ACC32E00F13A69 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		27FEF29323B30D7F00EB56BB /* ShopPhoneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E6C99F23ACAC2300F13A69 /* ShopPhoneTests.swift */; };
+		27FEF29323B30D7F00EB56BB /* ShopPhoneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E6C99F23ACAC2300F13A69 /* ShopPhoneTests.swift */; platformFilter = ios; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,8 +156,25 @@
 		270D5A4323AF8DF600A88C6F /* RealmManagerFavourite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManagerFavourite.swift; sourceTree = "<group>"; };
 		270D5A4523B05FA500A88C6F /* JGProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JGProgressHUD.framework; path = Carthage/Build/iOS/JGProgressHUD.framework; sourceTree = "<group>"; };
 		272F532623AF0CF90075E03A /* PhoneImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneImageModel.swift; sourceTree = "<group>"; };
+		2745696A23B368CA00C4ECE0 /* PhoneDataModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneDataModelTest.swift; sourceTree = "<group>"; };
 		275B7D7723B2084D0084B4F2 /* Reachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reachability.framework; path = Carthage/Build/iOS/Reachability.framework; sourceTree = "<group>"; };
 		275B7D7A23B20AA70084B4F2 /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
+		2761EC9723B48AC3000E7B70 /* PhoneListWorkerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneListWorkerTest.swift; sourceTree = "<group>"; };
+		2761ECA123B4A11E000E7B70 /* PhoneImageWorkerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneImageWorkerTest.swift; sourceTree = "<group>"; };
+		2761ECA723B4B328000E7B70 /* PhoneListPresenterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneListPresenterTest.swift; sourceTree = "<group>"; };
+		2761ECAE23B4ED39000E7B70 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
+		27A7F6F023B9EB4400D5A639 /* PhoneListDisplayLogicSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneListDisplayLogicSpy.swift; sourceTree = "<group>"; };
+		27BACE5A23B9F9C500FB693B /* PhoneListBusinessLogicSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneListBusinessLogicSpy.swift; sourceTree = "<group>"; };
+		27BACE5C23BB042000FB693B /* PhoneListPresentationLogicSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneListPresentationLogicSpy.swift; sourceTree = "<group>"; };
+		27BACE5E23BB1E0E00FB693B /* PhoneListViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneListViewControllerTest.swift; sourceTree = "<group>"; };
+		27BACE6023BB1EA300FB693B /* PhoneListRoutingLogicSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneListRoutingLogicSpy.swift; sourceTree = "<group>"; };
+		27BACE6323BB54EE00FB693B /* PhoneListInteractorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneListInteractorTest.swift; sourceTree = "<group>"; };
+		27BACE7B23BD069400FB693B /* PhoneDetailsBusinessLogicSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneDetailsBusinessLogicSpy.swift; sourceTree = "<group>"; };
+		27BACE7D23BD081D00FB693B /* PhoneDetailsPresentationLogicSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneDetailsPresentationLogicSpy.swift; sourceTree = "<group>"; };
+		27BACE7F23BD08A200FB693B /* PhoneDetailsPresenterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneDetailsPresenterTest.swift; sourceTree = "<group>"; };
+		27BACE8123BD08E600FB693B /* PhoneDetailsDisplayLogicSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneDetailsDisplayLogicSpy.swift; sourceTree = "<group>"; };
+		27BACE8323BD090B00FB693B /* PhoneDetailsViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneDetailsViewControllerTest.swift; sourceTree = "<group>"; };
+		27BACE8523BD097900FB693B /* PhoneDetailsInteractorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneDetailsInteractorTest.swift; sourceTree = "<group>"; };
 		27D80E7D23ADA1B80027AE96 /* ModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelProtocol.swift; sourceTree = "<group>"; };
 		27E6C98523ACAC2200F13A69 /* ShopPhone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShopPhone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27E6C98823ACAC2200F13A69 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -163,10 +219,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27BACE8723BD116400FB693B /* Moya.framework in Frameworks */,
 				27627BDD23B2609200C52057 /* RealmSwift.framework in Frameworks */,
 				27627BDC23B2608000C52057 /* Realm.framework in Frameworks */,
 				27E6C9F223ACC30700F13A69 /* Kingfisher.framework in Frameworks */,
-				27E6C9F523ACC31600F13A69 /* Moya.framework in Frameworks */,
 				270D5A4623B05FA500A88C6F /* JGProgressHUD.framework in Frameworks */,
 				275B7D7823B2084D0084B4F2 /* Reachability.framework in Frameworks */,
 				27E6C9F823ACC32300F13A69 /* ObjectMapper.framework in Frameworks */,
@@ -201,6 +257,116 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		273B119123B3E7C600865B46 /* Worker Tests */ = {
+			isa = PBXGroup;
+			children = (
+				2761EC9723B48AC3000E7B70 /* PhoneListWorkerTest.swift */,
+			);
+			path = "Worker Tests";
+			sourceTree = "<group>";
+		};
+		2745696923B3689A00C4ECE0 /* Model Tests */ = {
+			isa = PBXGroup;
+			children = (
+				2745696A23B368CA00C4ECE0 /* PhoneDataModelTest.swift */,
+				2761ECAE23B4ED39000E7B70 /* TestData.swift */,
+			);
+			path = "Model Tests";
+			sourceTree = "<group>";
+		};
+		2761EC9E23B492EA000E7B70 /* Interacter Tests */ = {
+			isa = PBXGroup;
+			children = (
+				27BACE5A23B9F9C500FB693B /* PhoneListBusinessLogicSpy.swift */,
+				27BACE6323BB54EE00FB693B /* PhoneListInteractorTest.swift */,
+			);
+			path = "Interacter Tests";
+			sourceTree = "<group>";
+		};
+		2761EC9F23B492F9000E7B70 /* Presenter Tests */ = {
+			isa = PBXGroup;
+			children = (
+				27BACE5C23BB042000FB693B /* PhoneListPresentationLogicSpy.swift */,
+				2761ECA723B4B328000E7B70 /* PhoneListPresenterTest.swift */,
+			);
+			path = "Presenter Tests";
+			sourceTree = "<group>";
+		};
+		2761ECA023B49307000E7B70 /* ViewController Tests */ = {
+			isa = PBXGroup;
+			children = (
+				27A7F6F023B9EB4400D5A639 /* PhoneListDisplayLogicSpy.swift */,
+				27BACE5E23BB1E0E00FB693B /* PhoneListViewControllerTest.swift */,
+			);
+			path = "ViewController Tests";
+			sourceTree = "<group>";
+		};
+		2761ECA923B4C77D000E7B70 /* PhoneList */ = {
+			isa = PBXGroup;
+			children = (
+				27BACE6223BB1EB900FB693B /* Routing Tests */,
+				273B119123B3E7C600865B46 /* Worker Tests */,
+				2761EC9F23B492F9000E7B70 /* Presenter Tests */,
+				2761ECA023B49307000E7B70 /* ViewController Tests */,
+				2761EC9E23B492EA000E7B70 /* Interacter Tests */,
+			);
+			path = PhoneList;
+			sourceTree = "<group>";
+		};
+		2761ECAA23B4C790000E7B70 /* PhoneDetail */ = {
+			isa = PBXGroup;
+			children = (
+				27BACE7A23BD063D00FB693B /* Presenter Tests */,
+				27BACE7923BD062B00FB693B /* ViewController Tests */,
+				27BACE7823BD05F800FB693B /* Interacter Tests */,
+				27BACE7723BD05DF00FB693B /* Worker Tests */,
+			);
+			path = PhoneDetail;
+			sourceTree = "<group>";
+		};
+		27BACE6223BB1EB900FB693B /* Routing Tests */ = {
+			isa = PBXGroup;
+			children = (
+				27BACE6023BB1EA300FB693B /* PhoneListRoutingLogicSpy.swift */,
+			);
+			path = "Routing Tests";
+			sourceTree = "<group>";
+		};
+		27BACE7723BD05DF00FB693B /* Worker Tests */ = {
+			isa = PBXGroup;
+			children = (
+				2761ECA123B4A11E000E7B70 /* PhoneImageWorkerTest.swift */,
+			);
+			path = "Worker Tests";
+			sourceTree = "<group>";
+		};
+		27BACE7823BD05F800FB693B /* Interacter Tests */ = {
+			isa = PBXGroup;
+			children = (
+				27BACE7B23BD069400FB693B /* PhoneDetailsBusinessLogicSpy.swift */,
+				27BACE8523BD097900FB693B /* PhoneDetailsInteractorTest.swift */,
+			);
+			path = "Interacter Tests";
+			sourceTree = "<group>";
+		};
+		27BACE7923BD062B00FB693B /* ViewController Tests */ = {
+			isa = PBXGroup;
+			children = (
+				27BACE8123BD08E600FB693B /* PhoneDetailsDisplayLogicSpy.swift */,
+				27BACE8323BD090B00FB693B /* PhoneDetailsViewControllerTest.swift */,
+			);
+			path = "ViewController Tests";
+			sourceTree = "<group>";
+		};
+		27BACE7A23BD063D00FB693B /* Presenter Tests */ = {
+			isa = PBXGroup;
+			children = (
+				27BACE7D23BD081D00FB693B /* PhoneDetailsPresentationLogicSpy.swift */,
+				27BACE7F23BD08A200FB693B /* PhoneDetailsPresenterTest.swift */,
+			);
+			path = "Presenter Tests";
+			sourceTree = "<group>";
+		};
 		27E6C97C23ACAC2200F13A69 = {
 			isa = PBXGroup;
 			children = (
@@ -237,6 +403,9 @@
 		27E6C99E23ACAC2300F13A69 /* ShopPhoneTests */ = {
 			isa = PBXGroup;
 			children = (
+				2761ECAA23B4C790000E7B70 /* PhoneDetail */,
+				2761ECA923B4C77D000E7B70 /* PhoneList */,
+				2745696923B3689A00C4ECE0 /* Model Tests */,
 				27E6C99F23ACAC2300F13A69 /* ShopPhoneTests.swift */,
 				27E6C9A123ACAC2300F13A69 /* Info.plist */,
 			);
@@ -496,10 +665,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				273BE58C23B279DD007693A8 /* Kingfisher.framework in Resources */,
+				27BACE6C23BC640800FB693B /* PhoneListCell.xib in Resources */,
 				273BE58B23B279D8007693A8 /* Moya.framework in Resources */,
+				273BE58C23B279DD007693A8 /* Kingfisher.framework in Resources */,
 				273BE58A23B279D3007693A8 /* ObjectMapper.framework in Resources */,
 				273BE58923B279CE007693A8 /* SwiftyJSON.framework in Resources */,
+				27BACE7623BC69E700FB693B /* Main.storyboard in Resources */,
 				273BE58823B279C9007693A8 /* RealmSwift.framework in Resources */,
 				273BE58723B279C3007693A8 /* Realm.framework in Resources */,
 				273BE58623B279AE007693A8 /* JGProgressHUD.framework in Resources */,
@@ -521,7 +692,6 @@
 		270D5A4923B1FC1D00A88C6F /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 8;
-			dependencyFile = "$(DERIVED_FILES_DIR)/$(INPUT_FILE_PATH).d";
 			files = (
 			);
 			inputFileListPaths = (
@@ -541,14 +711,14 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Kingfisher.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Moya.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/ObjectMapper.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
+				"$(DERIVED_FILE_DIR)/Moya.framework",
+				"$(DERIVED_FILE_DIR)/Alamofire.framework",
+				"$(DERIVED_FILE_DIR)/RealmSwift.framework",
+				"$(DERIVED_FILE_DIR)/ObjectMapper.framework",
+				"$(DERIVED_FILE_DIR)/SwiftyJSON.framework",
 				"$(DERIVED_FILE_DIR)/JGProgressHUD.framework",
 				"$(DERIVED_FILE_DIR)/Reachability.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
+				"$(DERIVED_FILE_DIR)/Realm.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
@@ -626,7 +796,44 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27BACE7223BC643300FB693B /* PhoneDetailsRouter.swift in Sources */,
+				27A7F6E223B6A95400D5A639 /* RealmManager.swift in Sources */,
+				27BACE7323BC643600FB693B /* PhoneDetailsViewController.swift in Sources */,
+				27BACE6423BB54EE00FB693B /* PhoneListInteractorTest.swift in Sources */,
+				27A7F6F123B9EB4400D5A639 /* PhoneListDisplayLogicSpy.swift in Sources */,
+				2745696B23B368CA00C4ECE0 /* PhoneDataModelTest.swift in Sources */,
+				27BACE6123BB1EA300FB693B /* PhoneListRoutingLogicSpy.swift in Sources */,
+				2761ECAF23B4ED39000E7B70 /* TestData.swift in Sources */,
+				27BACE6523BC639300FB693B /* PhoneListViewController.swift in Sources */,
+				27BACE6F23BC642B00FB693B /* PhoneDetailsPresenter.swift in Sources */,
+				27BACE7E23BD081D00FB693B /* PhoneDetailsPresentationLogicSpy.swift in Sources */,
+				2761ECA823B4B328000E7B70 /* PhoneListPresenterTest.swift in Sources */,
+				27BACE6A23BC63A300FB693B /* PhoneListPresenter.swift in Sources */,
+				27BACE7C23BD069400FB693B /* PhoneDetailsBusinessLogicSpy.swift in Sources */,
+				27BACE5F23BB1E0E00FB693B /* PhoneListViewControllerTest.swift in Sources */,
+				279F63D323B4716E006ADDFD /* PhoneDataService.swift in Sources */,
+				27BACE8223BD08E600FB693B /* PhoneDetailsDisplayLogicSpy.swift in Sources */,
+				27BACE6823BC639D00FB693B /* PhoneListRouter.swift in Sources */,
+				2761ECA223B4A11E000E7B70 /* PhoneImageWorkerTest.swift in Sources */,
+				27BACE6723BC639A00FB693B /* PhoneListModels.swift in Sources */,
+				27BACE7423BC643B00FB693B /* PhoneDetailsInteractor.swift in Sources */,
+				27BACE7523BC645E00FB693B /* PhoneImageModel.swift in Sources */,
+				27BACE8623BD097900FB693B /* PhoneDetailsInteractorTest.swift in Sources */,
+				27BACE6D23BC641400FB693B /* ConnectionManager.swift in Sources */,
+				27BACE8423BD090B00FB693B /* PhoneDetailsViewControllerTest.swift in Sources */,
+				27BACE7023BC642E00FB693B /* PhoneDetailsWorker.swift in Sources */,
+				27BACE6923BC63A000FB693B /* PhoneListWorker.swift in Sources */,
+				2761EC9C23B48BF7000E7B70 /* PhoneListWorkerTest.swift in Sources */,
+				27BACE8023BD08A200FB693B /* PhoneDetailsPresenterTest.swift in Sources */,
+				27BACE5D23BB042000FB693B /* PhoneListPresentationLogicSpy.swift in Sources */,
+				27BACE7123BC643100FB693B /* PhoneDetailsModels.swift in Sources */,
+				273B118F23B3AE6500865B46 /* ModelProtocol.swift in Sources */,
+				27BACE5B23B9F9C500FB693B /* PhoneListBusinessLogicSpy.swift in Sources */,
 				27FEF29323B30D7F00EB56BB /* ShopPhoneTests.swift in Sources */,
+				27BACE6B23BC63F300FB693B /* PhoneListViewCell.swift in Sources */,
+				27BACE6623BC639600FB693B /* PhoneListInteractor.swift in Sources */,
+				2745697123B3A5BB00C4ECE0 /* PhoneDataModel.swift in Sources */,
+				27A7F6E123B6A94F00D5A639 /* RealmManagerFavourite.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -840,6 +1047,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RJ7AM29PL8;
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -866,6 +1074,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RJ7AM29PL8;
+				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",

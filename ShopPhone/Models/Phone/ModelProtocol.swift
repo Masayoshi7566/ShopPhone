@@ -21,3 +21,17 @@ enum Result<T> {
     case Success(T)
     case Error(Error)
 }
+
+extension Array where Element: Equatable {
+    func removeDuplicate() -> [Element] {
+        var result = [Element]()
+
+        for value in self {
+            if result.contains(value) == false {
+                result.append(value)
+            }
+        }
+
+        return result
+    }
+}
