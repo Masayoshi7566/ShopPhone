@@ -22,6 +22,7 @@ enum Result<T> {
     case Error(Error)
 }
 
+//Remove Duplicate Data
 extension Array where Element: Equatable {
     func removeDuplicate() -> [Element] {
         var result = [Element]()
@@ -31,7 +32,6 @@ extension Array where Element: Equatable {
                 result.append(value)
             }
         }
-
         return result
     }
 }
